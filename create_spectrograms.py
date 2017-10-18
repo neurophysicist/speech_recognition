@@ -88,8 +88,8 @@ for iter, line in enumerate(file.readlines()[1:]):
     dir = filepath[-2]
     filename = filepath[-1]
     wavfile = line.split(',')[0]
-    directory = os.path.join('C:\\Users\\akorotki\\Desktop\\HSE\\png\\',dir)
+    directory = os.path.join('<path_to_spectrograms_dir>',dir)
     if not os.path.exists(directory):
         os.makedirs(directory)
-    plotstft(wavfile, channel=0, name='C:\\Users\\akorotki\\Desktop\\HSE\\png\\'+dir+'\\'+filename+'.png', alpha=1.0)
+    plotstft(wavfile, channel=0, name='<path_to_spectrograms_dir>'+dir+'\\'+filename+'.png', alpha=1.0)
     print "processed %d files" % (iter + 1)

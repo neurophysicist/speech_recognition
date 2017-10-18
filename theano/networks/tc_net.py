@@ -90,7 +90,6 @@ class Network(BaseNetwork):
             self.loss_l2 = 0
         self.loss = self.loss_ce + self.loss_l2
         
-        #updates = lasagne.updates.adadelta(self.loss, self.params)
         updates = lasagne.updates.momentum(self.loss, self.params, learning_rate=0.003)
         
         if self.mode == 'train':

@@ -24,19 +24,15 @@ parser.add_argument('--prefix', type=str, default="", help='optional prefix of n
 parser.add_argument('--dropout', type=float, default=0.0, help='dropout rate (between 0 and 1)')
 parser.add_argument('--no-batch_norm', dest="batch_norm", action='store_false', help='batch normalization')
 parser.add_argument('--rnn_num_units', type=int, default=500, help='number of hidden units if the network is RNN')
-parser.add_argument('--equal_split', type=bool, default=False, help='use trainEqual.csv and valEqual.csv')
 parser.add_argument('--forward_cnt', type=int, default=1, help='if forward pass is nondeterministic, then how many forward passes are averaged')
 
 parser.set_defaults(batch_norm=True)
 args = parser.parse_args()
 print args
 
-if (args.equal_split):
-    train_listfile = open("C:\\Users\\akorotki\\Desktop\\HSE\\validation_list.txt", "r")
-    test_listfile = open("C:\\Users\\akorotki\\Desktop\\HSE\\testing_list.txt", "r")
-else:
-    train_listfile = open("C:\\Users\\akorotki\\Desktop\\HSE\\validation_list.txt", "r")
-    test_listfile = open("C:\\Users\\akorotki\\Desktop\\HSE\\testing_list.txt", "r")
+
+train_listfile = open("<path_to_train_listfile>", "r")
+test_listfile = open("<path_to_test_listfile>", "r")
 
 train_list_raw = train_listfile.readlines()
 test_list_raw = test_listfile.readlines()
@@ -50,7 +46,7 @@ test_listfile.close()
 args_dict = dict(args._get_kwargs())
 args_dict['train_list_raw'] = train_list_raw
 args_dict['test_list_raw'] = test_list_raw
-args_dict['png_folder'] = 'C:\\Users\\akorotki\\Desktop\\HSE\\png\\'
+args_dict['png_folder'] = '<path_to_spectrograms_dir>'
     
 
 
@@ -120,7 +116,7 @@ def do_epoch(mode, epoch):
     
     if (mode == "predict"):
         all_prediction = np.vstack(all_prediction)
-        pred_filename = "C:\\Users\\akorotki\\Desktop\\HSE\\predictions\\" + ("equal_split." if args.equal_split else "") + \
+        pred_filename = "<path_to_predictions_dir>" + \
                          args.load_state[args.load_state.rfind('\\')+1:] + ".csv"
         with open(pred_filename, 'w') as pred_csv:
             for x in all_prediction:
@@ -134,7 +130,7 @@ if args.mode == 'train':
     for epoch in range(start_epoch, args.epochs):
         do_epoch('train', epoch)
         test_loss = do_epoch('test', epoch)
-        state_name = 'C:\\Users\\akorotki\\Desktop\\HSE\\states\\%s.epoch%d.test%.5f.state' % (network_name, epoch, test_loss)
+        state_name = '<path_to_states_dir>\\%s.epoch%d.test%.5f.state' % (network_name, epoch, test_loss)
         print "==> saving ... %s" % state_name
         network.save_params(state_name, epoch)
         
