@@ -25,3 +25,5 @@ For the second model:
 5. Change the `png_folder` and listfile paths in theano/main.py to your ones
 6. Create spectrograms for all of the files from dataset using `create_spectrograms.py`
 7. Run `theano/main.py`.
+
+Link to presentation: https://drive.google.com/open?id=0BzosZ0Y6TKpHT0thYlB0NlVESTQ 
